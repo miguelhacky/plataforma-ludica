@@ -1,15 +1,12 @@
 """Punto de entrada de FastAPI para Vercel."""
 
-try:
-    from app.main import app
-except Exception as exc:  # pragma: no cover - diagnóstico temporal de despliegue
-    from fastapi import FastAPI
+import sys
+from pathlib import Path
 
-    app = FastAPI(title="Diagnóstico temporal")
-    error = repr(exc)
+RAIZ_PROYECTO = Path(__file__).resolve().parent.parent
+if str(RAIZ_PROYECTO) not in sys.path:
+    sys.path.insert(0, str(RAIZ_PROYECTO))
 
-    @app.get("/")
-    def diagnostic():
-        return {"error_importacion": error}
+from app.main import app
 
 __all__ = ["app"]
