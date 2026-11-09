@@ -76,6 +76,27 @@ ruff check .
 
 Las pruebas automatizadas verifican que la página inicial cargue los datos de la temática, que `/salud` responda correctamente, que `/api/proyecto` devuelva la identificación oficial, que `/docs` esté disponible, y que los recursos de la PWA y `/sw.js` se sirvan correctamente.
 
+## Despliegue en Vercel
+
+El proyecto incluye `vercel.json` y `api/index.py` para publicar la aplicación FastAPI como una función ASGI en Vercel.
+
+1. Inicia sesión en Vercel con la cuenta que tenga acceso al repositorio.
+2. Selecciona **Add New Project** y elige `miguelhacky/plataforma-ludica`.
+3. Mantén el framework como **Other**.
+4. Usa `pip install -r requirements.txt` como comando de instalación si Vercel lo solicita.
+5. Pulsa **Deploy**.
+
+Después del despliegue, comprueba estas rutas usando el dominio asignado por Vercel:
+
+```text
+https://tu-proyecto.vercel.app/
+https://tu-proyecto.vercel.app/salud
+https://tu-proyecto.vercel.app/api/proyecto
+https://tu-proyecto.vercel.app/docs
+```
+
+Vercel ejecuta `api/index.py`, que importa la instancia FastAPI definida en `app/main.py`. La aplicación no utiliza una base de datos persistente en esta versión; si posteriormente se agregan puntajes o perfiles, se deberá usar una base de datos externa compatible con despliegues serverless.
+
 ## Estructura
 
 | Carpeta o archivo | Contenido |
